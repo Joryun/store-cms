@@ -1,0 +1,33 @@
+/* webpack配置文件 */
+{
+    /* webpack-dev-server用到的 IP、PORT、proxy */
+    /* getLocalIPParams是自定获取 ip 时需要提供的参数 */
+    "getLocalIPParams": {
+        /* 直接指定 ip 地址，这样每次 ip 的变更都需要修改该值 */
+        "ip": "0.0.0.0",
+
+        /* 网卡物理地址，只需要指定一次，以后都会直接自定获取该网卡的 ip 地址，建议使用 */
+        /* 使用数组设置 mac 地址，优先级递增（优先使用后面的 mac 地址） */
+        "mac": [
+            "7C-5C-F8-88-2E-12",
+            "84:4B:F5:42:DF:46",
+            "A8:60:B6:1F:6F:89",
+            "28:f0:76:78:06:8c"
+        ],
+
+        /* 网卡名称，这个跟 mac 地址有点类似，但精确度不够直接指定 mac 好 */
+        "name": ""
+    },
+    "PORT": "6822",
+    "proxy": {
+        /* 标志是否需要开启跨域服务，若不需要，请设置成 false */
+        "isNeed": true,
+        "matchObj": {
+            "/api/*": {
+                "target": "",
+                "changeOrigin": true,
+                "secure": false
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "module": "onlyChange",
+
+  "config": {
+    "host": "xxxx",
+    "user": "xxxx",
+    "pass": "xxxx",
+    "remotePath": "xxxx"
+  },
+
+  "all": "./build/**",
+
+  "onlyChange": ["./build/bundle.js", "./build/app.css", "./build/index.html"],
+
+  "custom": []
+}

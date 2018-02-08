@@ -1,0 +1,17 @@
+/node_modules
+
+# 忽略 build 下，通过工具打包出来的文件
+/build
+
+# 忽略 build 的压缩包
+/build*.zip
+
+# 里面有服务器的敏感信息，不跟踪
+/kit_config/sftp_config.json
+
+# 编辑器相关文件
+/.vscode
+
+# 工具错误日志
+npm-debug.log.*
+npm-debug.*
