@@ -82,9 +82,10 @@ const Banner = {
     findBanner : `${appConfig.apiPrefix}/api/admin/banner/findBanners`,
 }
 
-/* 商品模块 */
+/* 产品模块 */
 const Goods = {
-    goods : `${appConfig.apiPrefix}/api/admin/goods`,
+    // 分页获取产品列表
+    goods : `${appConfig.apiPrefix}/api/product/page`,
     operateGoods : `${appConfig.apiPrefix}/api/admin/goods/operateGoods`,
     
 }

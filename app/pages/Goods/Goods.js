@@ -52,21 +52,21 @@ class Goods extends Component {
         this.columns = [
             {
                 title: 'ID',
-                dataIndex: 'product.id',
+                dataIndex: 'id',
                 className: 'ant-tableThead',
                 fixed: 'left',
                 width: 50
             },
             {
                 title: '商品名字',
-                dataIndex: 'product.productTitle',
+                dataIndex: 'productTitle',
                 className: 'ant-tableThead',
                 fixed: 'left',
                 width: 100
             },
             {
                 title: '商品类别',
-                dataIndex: 'product.secondCategoryId',
+                dataIndex: 'secondCategoryId',
                 className: 'ant-tableThead',
                 fixed: 'left',
                 width: 100,
@@ -88,21 +88,21 @@ class Goods extends Component {
             {
                 title: '列表价',
                 className: 'ant-tableThead',
-                dataIndex: 'product.listPrice',
+                dataIndex: 'listPrice',
                 fixed: 'left',
-                width: 50,
+                width: 60,
                 render: statusConfig.Appmoney
             },
             {
                 title: '原价',
                 className: 'ant-tableThead',
-                dataIndex: 'product.originalPrice',
-                // width: 50,
+                dataIndex: 'originalPrice',
+                width: 60,
                 render: statusConfig.Appmoney
             },
             {
                 title: '产品主图',
-                dataIndex: 'product.path',
+                dataIndex: 'path',
                 width: 80,
                 className: 'ant-tableThead',
                 render: (path) => {
@@ -111,67 +111,67 @@ class Goods extends Component {
                     )
                 }
             },
-            {
-                title: '商品图',
-                dataIndex: 'goodsPictures',
-                width: 320,
-                className: 'ant-tableThead',
-                render: (goodsPictures, goods) => (
-                    goodsPictures.map((element, index) =>
-                        <img key={index} style={{ width: '50px', height: '35px', margin: '0 5px' }}
-                            src={goodsPictures[index]}
-                        />
-                    )
-                ),
-            },
+            // {
+            //     title: '商品图',
+            //     dataIndex: 'goodsPictures',
+            //     width: 320,
+            //     className: 'ant-tableThead',
+            //     render: (goodsPictures, goods) => (
+            //         goodsPictures.map((element, index) =>
+            //             <img key={index} style={{ width: '50px', height: '35px', margin: '0 5px' }}
+            //                 src={goodsPictures[index]}
+            //             />
+            //         )
+            //     ),
+            // },
             {
                 title: '创建时间',
                 className: 'ant-tableThead',
-                dataIndex: 'goods.createTime',
+                dataIndex: 'createTime',
                 // width: 90,
                 render: (text, _, __) => <span>{utils.momentFormat(text)}</span>
             },
-            {
-                title: '等级',
-                className: 'ant-tableThead',
-                dataIndex: 'goods.level',
-                // width: 70
-            },
-            {
-                title: '产地',
-                className: 'ant-tableThead',
-                dataIndex: 'goods.place',
-                // width: 70
-            },
-            {
-                title: '规格',
-                className: 'ant-tableThead',
-                dataIndex: 'goods.standard',
-                // width: 70
-            },
-            {
-                title: '储存方式',
-                className: 'ant-tableThead',
-                dataIndex: 'goods.storageMethod',
-                // width: 70
-            },
-            {
-                title: '温馨提示',
-                className: 'ant-tableThead',
-                dataIndex: 'goods.tips',
-                // width: 100
-            },
+            // {
+            //     title: '等级',
+            //     className: 'ant-tableThead',
+            //     dataIndex: 'goods.level',
+            //     // width: 70
+            // },
+            // {
+            //     title: '产地',
+            //     className: 'ant-tableThead',
+            //     dataIndex: 'goods.place',
+            //     // width: 70
+            // },
+            // {
+            //     title: '规格',
+            //     className: 'ant-tableThead',
+            //     dataIndex: 'goods.standard',
+            //     // width: 70
+            // },
+            // {
+            //     title: '储存方式',
+            //     className: 'ant-tableThead',
+            //     dataIndex: 'goods.storageMethod',
+            //     // width: 70
+            // },
+            // {
+            //     title: '温馨提示',
+            //     className: 'ant-tableThead',
+            //     dataIndex: 'goods.tips',
+            //     // width: 100
+            // },
             {
                 title: '销量',
                 className: 'ant-tableThead',
-                dataIndex: 'goods.salesSum',
+                dataIndex: 'salesNum',
                 fixed: 'right',
                 width: 80
             },
             {
                 title: '展示状态',
                 className: 'ant-tableThead',
-                dataIndex: 'goods.saleType',
+                dataIndex: 'saleType',
                 fixed: 'right',
                 width: 50
             },
@@ -186,11 +186,11 @@ class Goods extends Component {
                     return (
                         <span>
                             <Button
-                                type={record.goods.saleType == "OFF" ? '' : 'danger'}
+                                type={record.saleType == "OFF" ? '' : 'danger'}
                                 loading={this.state.isRowChangeFlagBtnLoadings[index]}
                                 onClick={() => this.handleRowUpClick(index, record)}
                             >
-                                {record.goods.saleType == "OFF" ? '上架' : '下架'}
+                                {record.saleType == "OFF" ? '上架' : '下架'}
                             </Button>
 
                             <span className="ant-divider" />
@@ -321,7 +321,7 @@ class Goods extends Component {
                 <Table
                     columns={this.columns}
                     scroll={{ x: '200%' }}
-                    rowKey={record => record.goods.id || 0}
+                    rowKey={record => record.id || 0}
                     dataSource={this.state.tableData}
                     bordered
                     loading={this.state.isTableDataLoading}
