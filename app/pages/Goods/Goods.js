@@ -62,7 +62,7 @@ class Goods extends Component {
                 dataIndex: 'productTitle',
                 className: 'ant-tableThead',
                 fixed: 'left',
-                width: 100
+                width: 150
             },
             {
                 title: '商品类别',
@@ -111,19 +111,19 @@ class Goods extends Component {
                     )
                 }
             },
-            // {
-            //     title: '商品图',
-            //     dataIndex: 'goodsPictures',
-            //     width: 320,
-            //     className: 'ant-tableThead',
-            //     render: (goodsPictures, goods) => (
-            //         goodsPictures.map((element, index) =>
-            //             <img key={index} style={{ width: '50px', height: '35px', margin: '0 5px' }}
-            //                 src={goodsPictures[index]}
-            //             />
-            //         )
-            //     ),
-            // },
+            {
+                title: '产品图',
+                dataIndex: 'goodsPictures',
+                width: 320,
+                className: 'ant-tableThead',
+                render: (goodsPictures, goods) => (
+                    goodsPictures.map((element, index) =>
+                        <img key={index} style={{ width: '50px', height: '35px', margin: '0 5px' }}
+                            src={goodsPictures[index]}
+                        />
+                    )
+                ),
+            },
             {
                 title: '创建时间',
                 className: 'ant-tableThead',
@@ -320,7 +320,8 @@ class Goods extends Component {
 
                 <Table
                     columns={this.columns}
-                    scroll={{ x: '200%' }}
+                    // scroll={{ x: '200%' }}
+                    size="middle"
                     rowKey={record => record.id || 0}
                     dataSource={this.state.tableData}
                     bordered

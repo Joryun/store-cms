@@ -63,18 +63,18 @@ class Admin  extends Component {
                 className: 'ant-tableThead',
                 dataIndex: 'managerRole',
             },
-            {
-                title: '负责仓库',
-                className: 'ant-tableThead',
-                dataIndex: 'warehouseName',
-                render:(warehouseName)=>{
-                    if(warehouseName == ''||warehouseName == null){
-                        return <span>无</span>
-                    }else{
-                        return <span>{warehouseName}</span>
-                    }
-                }
-            },
+            // {
+            //     title: '负责仓库',
+            //     className: 'ant-tableThead',
+            //     dataIndex: 'warehouseName',
+            //     render:(warehouseName)=>{
+            //         if(warehouseName == ''||warehouseName == null){
+            //             return <span>无</span>
+            //         }else{
+            //             return <span>{warehouseName}</span>
+            //         }
+            //     }
+            // },
             {
                 title: '电话',
                 className: 'ant-tableThead',

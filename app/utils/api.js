@@ -34,7 +34,7 @@ const Manager = {
  * http://119.23.155.182:9037/swagger-ui.html#/平台用户模块
  */ 
 const user = {
-    user: `${appConfig.apiPrefix}/api/admin/user`,
+    user: `${appConfig.apiPrefix}/api/user/page`,
 
     /* 禁用 put */
     operateUser: `${appConfig.apiPrefix}/api/admin/user/operateUser`

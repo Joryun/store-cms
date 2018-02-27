@@ -57,21 +57,21 @@ class Manager  extends Component {
                 className: 'ant-tableThead',
                 dataIndex: 'phone',
             },
-            {
-                title: '负责小区',
-                className: 'ant-tableThead',
-                dataIndex: 'districtId',
-                render : (districtId) =>{
-                    let num = this.state.WareList,
-                        passNum;
-                    num.forEach(function(element) {
-                        if(element.districtId == districtId){
-                            passNum = element.districtName
-                        }
-                    }, this);
-                    return <span>{passNum}</span>
-                }
-            },
+            // {
+            //     title: '负责小区',
+            //     className: 'ant-tableThead',
+            //     dataIndex: 'districtId',
+            //     render : (districtId) =>{
+            //         let num = this.state.WareList,
+            //             passNum;
+            //         num.forEach(function(element) {
+            //             if(element.districtId == districtId){
+            //                 passNum = element.districtName
+            //             }
+            //         }, this);
+            //         return <span>{passNum}</span>
+            //     }
+            // },
             {
                 title: '分成比例',
                 className: 'ant-tableThead',

@@ -40,14 +40,14 @@ const HocBdAdmin = (WrappedComponent) => {
                     
                     content.forEach(function(element) {
                         switch (element.managerRole) {
-                            case 'admin':
+                            case "ADMIN":
                                 element.managerRole = "超级管理员"
                                 break;
-                            case 'simple':
+                            case "SIMPLE":
                                 element.managerRole = "平台管理员"
                                 break;
-                            case 'warehouse':
-                                element.managerRole = "仓库管理员"
+                            case "SHOP":
+                                element.managerRole = "店铺管理员"
                                 break;
                         }
                     }, this);
