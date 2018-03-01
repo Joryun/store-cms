@@ -87,7 +87,7 @@ const Goods = {
     // 分页获取产品列表
     goods : `${appConfig.apiPrefix}/api/product/page`,
     // 操作产品，上下架
-    operate: `${appConfig.apiPrefix}/api/product/operate`,
+    operateProduct: `${appConfig.apiPrefix}/api/product/operate`,
 
     product: `${appConfig.apiPrefix}/api/product`
 }
