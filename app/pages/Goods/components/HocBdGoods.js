@@ -16,7 +16,8 @@ const HocBdGoods = (WrappedComponent) => {
             }
 
             componentDidMount() {
-                this.DistrictList();
+                this.SecondCategoryList();
+                this.CategoryList();
                 this.fetchTableData(1);
             }
 
@@ -40,11 +41,11 @@ const HocBdGoods = (WrappedComponent) => {
                         currentPage: currentPage,
                         tableDataTotal: totalElements,
                     })
-                    if(content != ''){
-                        this.setState({
-                            districtId: content[0].districtId,
-                        })
-                    }
+                    // if(content != ''){
+                    //     this.setState({
+                    //         districtId: content[0].districtId,
+                    //     })
+                    // }
                 })
                 .finally(() => {
                     this.setState({ isTableDataLoading: false, });
@@ -59,8 +60,8 @@ const HocBdGoods = (WrappedComponent) => {
                     searchSelect= '',
                 } = this.state;
                 let filter = '';
-                (districtNum != null) && (filter += `&goodsTypeId=${districtNum}`);
-                (searchName != null) && (filter += `&name=${searchName}`);
+                (districtNum != null) && (filter += `&secondCategoryId=${districtNum}`);
+                (searchName != null) && (filter += `&productTitle=${searchName}`);
                 (searchSelect != null) && (filter += `&saleType=${searchSelect}`);
                 return filter;
             }
@@ -161,7 +162,7 @@ const HocBdGoods = (WrappedComponent) => {
                 callAxios({
                     that: this,
                     method: 'put',
-                    url: `${API.operateGoods}?goodsId=${record.goods.id}`,
+                    url: `${API.operateProduct}?productId=${record.id}`,
                 })
                 .then((response) => {
                     let tableData = [...this.state.tableData];

@@ -86,8 +86,10 @@ const Banner = {
 const Goods = {
     // 分页获取产品列表
     goods : `${appConfig.apiPrefix}/api/product/page`,
-    operateGoods : `${appConfig.apiPrefix}/api/admin/goods/operateGoods`,
-    
+    // 操作产品，上下架
+    operate: `${appConfig.apiPrefix}/api/product/operate`,
+
+    product: `${appConfig.apiPrefix}/api/product`
 }
 
 /* 提现申请模块 */

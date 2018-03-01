@@ -14,6 +14,7 @@ import {
     Row,
     Popconfirm,
     Modal,
+    Tag
 } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -54,22 +55,33 @@ class Goods extends Component {
                 title: 'ID',
                 dataIndex: 'id',
                 className: 'ant-tableThead',
-                fixed: 'left',
+                // fixed: 'left',
                 width: 50
             },
             {
-                title: '商品名字',
+                title: '产品主图',
+                dataIndex: 'productImage',
+                width: 70,
+                className: 'ant-tableThead',
+                render: (path) => {
+                    return (
+                        <img src={path} style={{ width: '50px', height: '35px' }} />
+                    )
+                }
+            },
+            {
+                title: '产品名字',
                 dataIndex: 'productTitle',
                 className: 'ant-tableThead',
-                fixed: 'left',
+                // fixed: 'left',
                 width: 150
             },
             {
-                title: '商品类别',
+                title: '产品类别',
                 dataIndex: 'secondCategoryId',
                 className: 'ant-tableThead',
-                fixed: 'left',
-                width: 100,
+                // fixed: 'left',
+                width: 70,
                 render: (secondCategoryId) => {
                     let num,
                         tostring,
@@ -89,7 +101,7 @@ class Goods extends Component {
                 title: '列表价',
                 className: 'ant-tableThead',
                 dataIndex: 'listPrice',
-                fixed: 'left',
+                // fixed: 'left',
                 width: 60,
                 render: statusConfig.Appmoney
             },
@@ -100,49 +112,45 @@ class Goods extends Component {
                 width: 60,
                 render: statusConfig.Appmoney
             },
-            {
-                title: '产品主图',
-                dataIndex: 'path',
-                width: 80,
-                className: 'ant-tableThead',
-                render: (path) => {
-                    return (
-                        <img src={path} style={{ width: '50px', height: '35px' }} />
-                    )
-                }
-            },
-            {
-                title: '产品图',
-                dataIndex: 'goodsPictures',
-                width: 320,
-                className: 'ant-tableThead',
-                render: (goodsPictures, goods) => (
-                    goodsPictures.map((element, index) =>
-                        <img key={index} style={{ width: '50px', height: '35px', margin: '0 5px' }}
-                            src={goodsPictures[index]}
-                        />
-                    )
-                ),
-            },
+
+            // {
+            //     title: '产品图',
+            //     dataIndex: 'goodsPictures',
+            //     width: 320,
+            //     className: 'ant-tableThead',
+            //     render: (goodsPictures, goods) => (
+            //         goodsPictures.map((element, index) =>
+            //             <img key={index} style={{ width: '50px', height: '35px', margin: '0 5px' }}
+            //                 src={goodsPictures[index]}
+            //             />
+            //         )
+            //     ),
+            // },
             {
                 title: '创建时间',
                 className: 'ant-tableThead',
                 dataIndex: 'createTime',
-                // width: 90,
+                width: 80,
                 render: (text, _, __) => <span>{utils.momentFormat(text)}</span>
             },
-            // {
-            //     title: '等级',
-            //     className: 'ant-tableThead',
-            //     dataIndex: 'goods.level',
-            //     // width: 70
-            // },
-            // {
-            //     title: '产地',
-            //     className: 'ant-tableThead',
-            //     dataIndex: 'goods.place',
-            //     // width: 70
-            // },
+            {
+                title: '属性',
+                className: 'ant-tableThead',
+                dataIndex: 'keys',
+                // width: 70
+                render: (keyList) => <span>{keyList + ''}</span>
+            },
+            {
+                title: '属性值',
+                className: 'ant-tableThead',
+                dataIndex: 'attributeGroupsList',
+                // width: 70
+                render: (attributeGroups) => (
+                    attributeGroups.map((element, index) =>
+                        <span key={index}>{element.value + ''}<br /></span>
+                    )
+                )
+            },
             // {
             //     title: '规格',
             //     className: 'ant-tableThead',
@@ -165,22 +173,22 @@ class Goods extends Component {
                 title: '销量',
                 className: 'ant-tableThead',
                 dataIndex: 'salesNum',
-                fixed: 'right',
-                width: 80
+                // fixed: 'right',
+                width: 30
             },
             {
                 title: '展示状态',
                 className: 'ant-tableThead',
                 dataIndex: 'saleType',
-                fixed: 'right',
+                // fixed: 'right',
                 width: 50
             },
             {
                 title: '操作',
                 className: 'ant-tableThead',
                 key: 'action',
-                width: 270,
-                fixed: 'right',
+                width: 250,
+                // fixed: 'right',
                 render: (text, record, index) => {
                     let { id = -1 } = record;
                     return (
@@ -212,6 +220,10 @@ class Goods extends Component {
 
         /* body's state */
         tableData: [],
+        // 主分类
+        CategoryList: [],
+        categoryData: [],
+        // 次分类
         DataList: [],
         typeList: [],
         pathDefaultFileList: [],
@@ -241,6 +253,9 @@ class Goods extends Component {
         editFormTitle: '',
         editFormFlag: '',
 
+        // 主分类id
+        categoryNum: null,
+        // 次分类id
         districtNum: null,
         isdisabled: false,
         buttonDisabled: true,
@@ -269,13 +284,28 @@ class Goods extends Component {
                 <Row className="lw-top-col" type="flex" align="middle" justify="space-between">
                     <div className="lw-list-div">
                         <div className="lw-list-div-li">
-                            <label>分类选择：</label>
+                            <label>主分类选择：</label>
                             <Select
                                 showSearch
                                 allowClear
                                 labelInValue
                                 optionFilterProp="children"
-                                placeholder="选择分类"
+                                placeholder="手机/运营商/数码"
+                                disabled={this.state.isdisabled}
+                                style={{ width: 150 }}
+                                onChange={this.handleCategorySelectChange}
+                            >
+                                {this.state.CategoryList}
+                            </Select>
+                        </div>
+                        <div className="lw-list-div-li">
+                            <label>次分类选择：</label>
+                            <Select
+                                showSearch
+                                allowClear
+                                labelInValue
+                                optionFilterProp="children"
+                                placeholder="选择次分类"
                                 disabled={this.state.isdisabled}
                                 style={{ width: 150 }}
                                 onChange={this.handleSelectChange}
@@ -354,7 +384,7 @@ class Goods extends Component {
                                     initialValue: this.state.name
                                 })(
                                     <Input placeholder="请输入商品名字" />
-                                    )
+                                )
                             }
                         </FormItem>
                         <FormItem
@@ -376,7 +406,7 @@ class Goods extends Component {
                                     >
                                         {this.state.DataList}
                                     </Select>
-                                    )
+                                )
                             }
                         </FormItem>
                         <FormItem
@@ -392,7 +422,7 @@ class Goods extends Component {
                                         defaultFileList={this.state.pathDefaultFileList}
                                         handleEnhanceSingleUploadChange={this.handleEnhanceSingleUploadChange}
                                     />
-                                    )
+                                )
                             }
                         </FormItem>
                         <FormItem
@@ -409,7 +439,7 @@ class Goods extends Component {
                                         defaultFileList={this.state.goodsPicturesDefaultFileList}
                                         handleUploadChange={this.handleGoodsPicturesUploadChange}
                                     />
-                                    )
+                                )
                             }
                         </FormItem>
                         <FormItem
@@ -422,7 +452,7 @@ class Goods extends Component {
                                     initialValue: this.state.price
                                 })(
                                     <InputNumber min={0} precision={2} />
-                                    )
+                                )
                             }元
                         </FormItem>
                         <hr style={{ marginBottom: '15px' }} />
@@ -436,7 +466,7 @@ class Goods extends Component {
                                     initialValue: this.state.pricePerCatty
                                 })(
                                     <InputNumber min={0} precision={2} />
-                                    )
+                                )
                             }元
                         </FormItem>
                         <FormItem
@@ -449,7 +479,7 @@ class Goods extends Component {
                                     initialValue: this.state.cattyEach
                                 })(
                                     <InputNumber min={0} />
-                                    )
+                                )
                             }
                         </FormItem>
                         <FormItem
@@ -462,7 +492,7 @@ class Goods extends Component {
                                     initialValue: this.state.remark
                                 })(
                                     <Input placeholder="添加计价方式（每份多少斤，每斤多少钱）" />
-                                    )
+                                )
                             }
                         </FormItem>
                         <FormItem
@@ -590,17 +620,50 @@ class Goods extends Component {
         this.setState({ [stateName]: value });
     }
 
-    DistrictList = () => {
+    // 主分类数据
+    CategoryList = () => {
         callAxios({
             that: this,
             method: 'get',
-            url: `${API.goodsTypeList}`,
+            url: `${API.category}`,
+        })
+            .then((res) => {
+                let categoryList = [],
+                    {
+                        data = null
+                    } = res;
+                for (let i = 0; i < data.length; i++) {
+                    categoryList.push(<Option key={data[i].id} >{data[i].name}</Option>);
+                }
+                this.setState({
+                    CategoryList: categoryList,
+                    categoryData: res.data
+                }, () => {
+                    this.setState({
+                        isdisabled: false,
+                    })
+                })
+            })
+    }
+
+    // 次分类数据
+    SecondCategoryList = () => {
+        let {
+            categoryNum = ''
+        } = this.state;
+        if (categoryNum == null) {
+            categoryNum = 1;
+        }
+        callAxios({
+            that: this,
+            method: 'get',
+            url: `${API.secondCategory}?categoryId=` + categoryNum,
         })
             .then((res) => {
                 let dataList = [],
                     {
-                data = null
-            } = res;
+                        data = null
+                    } = res;
                 for (let i = 0; i < data.length; i++) {
                     dataList.push(<Option key={data[i].id} >{data[i].name}</Option>);
                 }
@@ -634,6 +697,25 @@ class Goods extends Component {
         this.props.form.setFieldsValue({ goodsPictures: temp });
     }
 
+    // 主分类下拉框事件
+    handleCategorySelectChange = (key) => {
+        let keyNum = 0;
+        if (key == undefined) {
+            keyNum = null;
+        } else {
+            keyNum = key.key;
+        }
+        this.setState({
+            categoryNum: keyNum,
+            // 更改主分类时，为防止现有页面产品找不到刺次级分类，因此过滤掉所有产品
+            districtNum: 0
+        }, () => {
+            this.fetchTableData();
+            this.SecondCategoryList();
+        });
+    }
+
+    // 次分类下拉框事件
     handleSelectChange = (key) => {
         let keyNum = 0;
         if (key == undefined) {
