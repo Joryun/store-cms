@@ -20,14 +20,15 @@ const HocHdType = (WrappedComponent) => {
 
                 this.props.form.setFieldsValue({
                     name : '',
+                    // secondCategoryUrl : '',
                     imageUrl : '',
-                    priority : '',
-                    // remarks : '',
+                    priority : ''
                 });
+                
             }
 
             handleEnhanceSingleUploadChange = (imgUrl) => {
-                this.props.form.setFieldsValue({ imageUrl: imgUrl });
+                this.props.form.setFieldsValue({ secondCategoryUrl: imgUrl });
             }
 
         }

@@ -2,7 +2,9 @@ import API from '../../../utils/api.js';
 import callAxios from 'utils/callAxios';
 import * as appConfig from 'configs/appConfig.js';
 
-import { message, } from 'antd';
+import {
+    message,
+} from 'antd';
 
 const HocFtType = (WrappedComponent) => {
     return (
@@ -14,7 +16,9 @@ const HocFtType = (WrappedComponent) => {
             handleEditCancelClick = () => {
                 (this.editFormFlag === 'update') && (this.changeRowLoading('isRowEditBtnLoadings', this.tableCurIndex, false));
 
-                this.setState({ isShowEditDialog: false, });
+                this.setState({
+                    isShowEditDialog: false,
+                });
             }
 
             handleEditOkClick = (event) => {
@@ -28,21 +32,23 @@ const HocFtType = (WrappedComponent) => {
             }
 
             fetchEditInfo = (values) => {
-                this.setState({ isEditOkBtnLoading: true });
+                this.setState({
+                    isEditOkBtnLoading: true
+                });
 
                 let toggleAddUpdateParam = this.toggleAddUpdate(values);
 
                 callAxios({
                     that: this,
                     ...toggleAddUpdateParam,
-                    url: url2,
+                    // url: url2,
                 })
                     .then((response) => {
                         message.success(toggleAddUpdateParam.msg);
 
                         let {
-                        data = null,
-                    } = response;
+                            data = null,
+                        } = response;
                         let tableData = [...this.state.tableData];
                         switch (this.editFormFlag) {
                             case 'add':
@@ -59,23 +65,32 @@ const HocFtType = (WrappedComponent) => {
                                 break;
                         }
 
-                        (data) && (this.setState({ tableData }));
+                        (data) && (this.setState({
+                            tableData
+                        }));
 
-                        this.setState({ isShowEditDialog: false, });
+                        this.setState({
+                            isShowEditDialog: false,
+                        });
                     })
                     .finally(() => {
-                        this.setState({ isEditOkBtnLoading: false, });
+                        this.setState({
+                            isEditOkBtnLoading: false,
+                        });
                     });
             }
 
             toggleAddUpdate = (values) => {
+                
                 let {
                     priority,
                     secondCategoryUrl,
                     name,
                 } = values;
-                debugger
+
                 let id = this.state.id;
+
+                let categoryId = this.state.categoryNum || 1;
 
                 let editFormFlag = this.editFormFlag;
                 let url = '',
@@ -83,7 +98,6 @@ const HocFtType = (WrappedComponent) => {
                     msg = '';
                 let data = {
                     priority,
-                    // remarks,
                     secondCategoryUrl,
                     name,
                 };
@@ -91,6 +105,7 @@ const HocFtType = (WrappedComponent) => {
                     url = API.secondCategory;
                     method = 'post';
                     msg = '添加成功';
+                    data.categoryId = categoryId;
                 } else {
                     url = API.secondCategory;
                     method = 'put';

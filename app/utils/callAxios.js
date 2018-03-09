@@ -55,13 +55,11 @@ const callAxios = async (opts = {}) => {
             // http.ClientRequest in node.js
 
             // 这里有超时
-            // debugger
             console.log(error.request);
 
             return Promise.reject(error.request);
         } else {
             // Something happened in setting up the request that triggered an Error
-            // debugger
             console.log('Error', error.message);
 
             return Promise.reject(error.message);

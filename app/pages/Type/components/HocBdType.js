@@ -77,7 +77,6 @@ const HocBdType = (WrappedComponent) => {
                     secondCategoryUrl = '',
                     name = '',
                 } = record;
-                debugger
 
                 this.tableCurIndex = index;
 
@@ -99,8 +98,7 @@ const HocBdType = (WrappedComponent) => {
 
                 this.props.form.setFieldsValue({
                     priority,
-                    // remarks,
-                    url: secondCategoryUrl,
+                    secondCategoryUrl: secondCategoryUrl,
                     name
                 });
             }

@@ -91,7 +91,7 @@ class Type extends Component {
                             <Button loading={this.state.isRowEditBtnLoadings[index]} onClick={() => this.handleRowEditClick(index, record)}>信息编辑</Button>
                             <span className="ant-divider" />
                             <Popconfirm title="确定要删除吗？" placement="topRight" onConfirm={() => this.handleRowDeleteClick(record, index)}>
-                                <Button type="danger">删除</Button>
+                                <Button type="danger" disabled>删除</Button>
                             </Popconfirm>
                         </span>
                     );
@@ -118,6 +118,7 @@ class Type extends Component {
         /* footer's state */
         id: -1,
         priority: '',
+        imageUrl: '',
 
 
         // remarks: '',
@@ -159,7 +160,7 @@ class Type extends Component {
                             </Select>
                         </div>
                         <Button onClick={this.handleAddClick} icon="plus" style={{ float: 'right' }}>
-                            添加产品分类
+                            添加次级分类
                         </Button>
                     </div>
                 </Row>
@@ -189,14 +190,14 @@ class Type extends Component {
                     <Form onSubmit={this.handleEditOkClick}>
                         <FormItem
                             {...formItemLayout}
-                            label="商品分类"
+                            label="次级分类"
                         >
                             {
                                 getFieldDecorator('name', {
                                     rules: customRules,
                                     initialValue: this.state.name
                                 })(
-                                    <Input placeholder="请输入商品分类" />
+                                    <Input placeholder="请输入次级分类" />
                                     )
                             }
                         </FormItem>
@@ -206,7 +207,7 @@ class Type extends Component {
                             label="分类封面"
                         >
                             {
-                                getFieldDecorator('url', {
+                                getFieldDecorator('secondCategoryUrl', {
                                     rules: customRules,
                                     initialValue: this.state.imageUrl
                                 })(
